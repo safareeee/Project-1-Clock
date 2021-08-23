@@ -1,0 +1,161 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+// int main to introduce each int like hour = hr, minute = min, second = second.
+
+int main() {
+   int userInpuit;
+
+   int hr12 = 0;
+   int min12 = 0;
+   int second12 = 0;
+   string AMorPM = " "; // for the 12 hour cloock, this is important to identify if it is morning or night and then a space inbetween each 
+   int countHr = 1; // to add 1 hour
+   int countMin = 1; // to add 1 minute
+   int countSecond = 1; // top add one second
+
+   int hr24 = 0; // to remove the 1 from hour, minute and second
+   int min24 = 0;
+   int second24 = 0;
+
+   displayMenu(); //display menu so it will print the 4 options
+   cin >> userInput;
+
+   while (userInput != 4) { // The while will identify that its the "end program" itll complete other task once it starts to add 1 to each integer
+       if (userInput == 1) { //add an hour
+           if (count <= 11) { // to add 1, to make 12 (hours)
+               AMorPM = "A M";
+               addOneHr(hr12); 
+               addOneHr(hr24);
+           }
+           else if (count == 12) {
+               AMorPM = "P M"; // becasue we identified that AM above, we now introduce PM hernce why its already == 12. Continued throughout the code for minute and second
+               hr12 = 1;
+               addOnehr(hr24);
+           }
+           else if (count == 13) {
+               AMorPM = "P M";
+               hr12 = 1;
+               addOnehr(hr24);
+           }
+           else if (count > 13 && count < 24) { // used && becasue both sides of the else if are true and both will be false if it prints something else
+               AMorPM = "P M";
+               addOneHr(hr12);
+               addOneHr(hr24);
+           }
+           else {
+               hr12 = 0;
+               hr24 = 0;
+               AMorPM = "A M";
+               break;
+           }
+       }
+       else if (userInput == 2) { // to add a minute
+           if (countMin <= 59) { // there are 60 second in a minute, but to add 1 second it has to start at 59
+               addOneMin(min12);
+               addOneMin(min24);
+               if (count <= 11) {
+                   AMorPM = "A M";
+               }
+               else {
+                   AMorPM = "P M";
+               }
+           }
+           else if (countMin == 60) {
+               if (count <= 11) {
+                   min12 = 0;
+                   min24 = 0;
+                   hr12++;
+                   hr24++;
+                   AMorPM = "A M";
+               }
+               else {
+                   min12 = 0;
+                   min24 = 0;
+                   hr12++; // ++ is used becasue we are constanly adding 1, so its a shorter version of x + 1
+                   hr24++;
+                   AMorPM = "P M";
+               }
+           }
+           else if (countMin == 61) {
+               if (count <= 11) {
+                   min12 = 1;
+                   min24 = 1;
+                   AMorPM = "A M";
+                   countMin = 1;
+               }
+               else {
+                   min12 = 1;
+                   min24 = 1;
+                   AMorPM = "P M";
+                   countMin = 1;
+               }
+           }
+       }
+       else if (userInput == 3) {  // to add one second like it says in option 3
+           if (countSecond <= 59) {
+               addOneSecond(second12);
+               addOneSecond(second24);
+               if (count <= 11) {
+                   AMorPM = "A M";
+               }
+               else {
+                   AMorPM = "P M";
+               }
+           }
+           else if (countSecond == 60) {
+               if (count <= 11) {
+                   second12 = 0;
+                   second24 = 0;
+                   min12++;
+                   min24++;
+                   AMorPM = "A M";
+               }
+               else {
+                   second12 = 0;
+                   second24 = 0;
+                   min12++;
+                   min24++;
+                   AMorPM = "PM";
+               }
+           }
+           else if (countSecond == 61) {
+               if (count <= 11) {
+                   second12 = 1;
+                   second24 = 1;
+                   AMorPM = "P M";
+                   countSecond = 1;
+               }
+           }
+       }
+       displayMenu(); //display menu from flowchart
+       cin >> userInput; // constant repeaet of userInput from flowchart
+       if (userInput == 1) {
+           count++;
+       }
+       else if (userInput == 2) {
+           countMin++;
+       }
+       else if (userInput == 3) {
+           countSecond++;
+       }
+       else if (userInput == 4) {
+           cout << "Exit PrograM \n"; // end the program at the end of the flowchart
+       }
+   }
+   displayTime(hr12, min12, second12, AMorPM, hr24, min24, second24); { //displays the correct format its asking for from the Chada documentation
+       cout << "**************************\n";
+       cout << "*   1 - Add One Hour     *\n";
+       cout << "*   2 - Add One Minute   *\n";
+       cout << "*   3 - Add One Second   *\n";
+       cout << "*   4 - Exit Program     *\n";
+       cout << "**************************\n";
+
+
+   }
+
+
+}
